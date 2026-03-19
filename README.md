@@ -1,11 +1,22 @@
 # chitchat_api
 
-FastAPI chatbot API with 2 modes:
+FastAPI **hybrid chatbot** API with 2 modes (chitchat + document QA):
 
 - **Chat** (chitchat): generates a conversational reply using a Hugging Face seq2seq model.
 - **QA** (document question answering): uses Haystack + Elasticsearch to answer by extracting text from files in `context/`.
 
 The API exposes a single endpoint: `GET /chat`.
+
+---
+
+## Impact
+
+What this project is useful for:
+
+- Turn a folder of Thai text files (`context/`) into a searchable Q&A assistant (extractive QA) that can answer questions with short, grounded snippets.
+- Provide a simple “one endpoint” API that is easy to integrate into other apps (web, LINE bot, internal tools).
+- Make QA experiments reproducible with CLI + batch runner (you can measure answer latency and iterate on settings like `top_k` / `QA_THRESHOLD`).
+- Demonstrate a practical hybrid chatbot pattern: route between chitchat and document QA, depending on the user intent.
 
 ---
 
@@ -134,6 +145,23 @@ Inside the CLI:
 - `/mode auto` – classifier decides
 - `/reset` – clear history
 - `/exit` – quit
+
+### Example session
+
+```text
+Connected to http://127.0.0.1:3001 (mode=qa)
+Type your message. Use /help for commands.
+> ก.ล.ต. เกี่ยวข้องกับอะไรบ้าง
+การออกและการเสนอขายหลักทรัพย์, หนังสือชี้ชวน, งบการเงิน
+> กองทุนรวมคืออะไร
+กองทุนรวมคือ ...
+> /mode chat
+(ok) mode=chat
+> สวัสดี
+สวัสดี
+> /exit
+bye
+```
 
 ---
 
