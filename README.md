@@ -148,8 +148,20 @@ Inside the CLI:
 
 ### Example session
 
-![Screenshot](Screenshot 2026-03-20 024045)
-
+```text
+Connected to http://127.0.0.1:3001 (mode=qa)
+Type your message. Use /help for commands.
+> ก.ล.ต. เกี่ยวข้องกับอะไรบ้าง
+การออกและการเสนอขายหลักทรัพย์, หนังสือชี้ชวน, งบการเงิน
+> กองทุนรวมคืออะไร
+กองทุนรวมคือ ...
+> /mode chat
+(ok) mode=chat
+> สวัสดี
+สวัสดี
+> /exit
+bye
+```
 ---
 
 ## Batch run (generate results CSV)
