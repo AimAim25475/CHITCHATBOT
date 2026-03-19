@@ -148,7 +148,7 @@ Inside the CLI:
 
 ### Example session
 
-![Screenshot](assets/screenshot-2026-03-20-024045.png)
+![Screenshot](Screenshot 2026-03-20 024045)
 
 ---
 
