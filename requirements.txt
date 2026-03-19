@@ -4,4 +4,4 @@ numpy
 pandas
 # farm-haystack[all]
 uvicorn
-pyword
+# pyword  # unused; also not available on PyPI in many environments

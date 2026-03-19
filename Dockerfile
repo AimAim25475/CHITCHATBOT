@@ -5,6 +5,7 @@ ADD requirements.txt requirements.txt
 RUN pip3 install --upgrade pip
 # RUN pip install farm-haystack[all]
 RUN pip3 install -r requirements.txt
+RUN if [ -f requirements-qa.txt ]; then pip3 install -r requirements-qa.txt; fi
 COPY . /usr/src/app/
 
 WORKDIR /usr/src/app/

@@ -1,6 +1,7 @@
 import pandas as pd
 # import numpy as np
 # import pickle as pk
+from pathlib import Path
 from pythainlp import word_tokenize
 
 from sklearn.model_selection import train_test_split
@@ -9,6 +10,8 @@ from sklearn.linear_model import LogisticRegression
 
 cvec = None
 lr = None
+
+_BASE_DIR = Path(__file__).resolve().parents[1]
 
 # model_path = 'models/text_classification.sav'
 
@@ -24,11 +27,11 @@ def text_process(text):
 
 def prepare_model():
     global cvec, lr
-    qa = pd.read_csv('CMSK/train.csv')
+    qa = pd.read_csv(_BASE_DIR / 'CMSK' / 'train.csv')
     qa_df = qa.iloc[:,1:3]
     qa_df['label'] = 'qa_mode'
 
-    chat_df = pd.read_csv('CMSK/chitchat_train_data.csv')
+    chat_df = pd.read_csv(_BASE_DIR / 'CMSK' / 'chitchat_train_data.csv')
     chat_df.rename(columns={'Q':'question','A':'answer'}, inplace=True)
     chat_df['label'] = 'chat_mode'
 

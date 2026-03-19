@@ -29,26 +29,27 @@ def chat(user_input, chat_history):
     hist = ""
     for chat in chat_history:
         hist += "\n" + chat
-    hist += "\nANSWER: "
+    # The model was trained to complete after the explicit "ANSWER:" tag.
+    prompt = (hist + "\nANSWER: ").lstrip()
     # hist += "\n"
     # print(hist)
 
     with torch.no_grad():
-        # new_user_input_ids = tokenizer.encode(user_input, f'CONTEXT: {hist}', return_tensors='pt',  add_special_tokens=True)
-        new_user_input_ids = tokenizer.encode(user_input, return_tensors='pt',  add_special_tokens=True)
+        inputs = tokenizer(prompt, return_tensors="pt", add_special_tokens=True)
+        try:
+            inputs = inputs.to(model.device)
+        except Exception:
+            pass
 
-        bot_input_ids = new_user_input_ids
-
-        # generated a response while limiting the total chat history to 1000 tokens, 
         chat_history_ids = model.generate(
-            bot_input_ids, 
-            max_length=512,
-            num_beams=5,
-            pad_token_id=tokenizer.eos_token_id,  
-            do_sample=True, 
-            top_p=50,
-            top_k=20,
-            temperature = 0.1,
+            **inputs,
+            max_new_tokens=128,
+            do_sample=True,
+            top_p=0.95,
+            top_k=50,
+            temperature=0.7,
+            num_beams=1,
+            pad_token_id=tokenizer.eos_token_id,
             num_return_sequences=1,
         )
 
